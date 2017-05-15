@@ -4,7 +4,8 @@ Simple tool that transforms pgn files of chess games into a neo4j graph for anal
 Importing multiple games will append to the existing neo4j chess graph.
 
 ## Overview
-![BFS traversal Zoomed in](pictures/BFS-zoom.png = 100x)
+Zoom on a BFS Traversal of a subset of my lichess games
+![BFS traversal Zoomed in](pictures/BFS-zoom.png)
 
 ### Chess Graph 
 ```
@@ -17,7 +18,9 @@ Importing multiple games will append to the existing neo4j chess graph.
     blackWinCnt: 3
  }) -[:Move {move:["e5"]}]->  (...)
  ```
-![Small subset of e4 games](pictures/e4-games.png = 75x)
+ 
+A subset of my games that start with 'e4'
+![Small subset of e4 games](pictures/e4-games.png)
 
 
 ## TODO
