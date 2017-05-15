@@ -1,0 +1,14 @@
+[Event "Rated game"]
+[Date "2017.05.11"]
+[Round "-"]
+[White "asdfadf"]
+[Black "asdfafd"]
+[Result "1-0"]
+[PlyCount "79"]
+[Variant "Standard"]
+[TimeControl "600+0"]
+[ECO "C44"]
+[Opening "Scotch Game"]
+[Termination "Normal"]
+
+1. e4 { [%clk 0:10:00] } e5 { [%clk 0:10:00] } 2. Nf3 { [%clk 0:09:58] } Nc6 { [%clk 0:09:56] } 3. d4 { [%clk 0:09:55] } { C44 Scotch Game } d6 { [%clk 0:08:44] } 1-0
