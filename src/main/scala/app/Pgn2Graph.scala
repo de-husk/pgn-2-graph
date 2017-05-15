@@ -1,5 +1,3 @@
-package app
-
 import pgn.Pgn
 
 // Usage:

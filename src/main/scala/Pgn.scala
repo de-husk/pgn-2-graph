@@ -3,7 +3,7 @@ package pgn
 case class Pgn(
   moves: List[Move],
   result: GameResult
-) {}
+)
 
 object Pgn {
   def apply(pgn: String): Either[PgnParser.ParseError, Pgn] = {
