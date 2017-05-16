@@ -40,7 +40,7 @@ object Pgn2Graph {
      """).apply()
 
     if (initialBoardState.length == 0) {
-      val result = Cypher("""
+      Cypher("""
          create (`0`:BoardState {
              moveNumber: 0,
              fen: "TODO",

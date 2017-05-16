@@ -5,7 +5,7 @@ Importing multiple games will append to the existing neo4j chess graph.
 
 ## Overview
 Zoom on a BFS Traversal of a subset of my lichess games
-![BFS traversal Zoomed in](pictures/BFS-zoom.png)
+![BFS traversal Zoomed in](http://i.imgur.com/wgWlXQa.png)
 
 ### Chess Graph 
 ```
@@ -20,7 +20,7 @@ Zoom on a BFS Traversal of a subset of my lichess games
  ```
  
 A subset of my games that start with 'e4'
-![Small subset of e4 games](pictures/e4-games.png)
+![Small subset of e4 games](http://i.imgur.com/UcbLLzh.png)
 
 
 ## TODO
