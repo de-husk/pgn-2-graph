@@ -42,7 +42,7 @@ class PgnParserTest extends Specification {
 
     "returns MissingMoves error when no moves line is present" in {
       val error = PgnParser.parseMoves("[Result 1-0] \n [Date 12:12:02] \n [Foo Bar]\n\n\n")
-      error shouldEqual Left(PgnParser.ParseError.MissingMoves)
+      error shouldEqual Left(ParseError.MissingMoves)
     }
   }
 
@@ -54,7 +54,7 @@ class PgnParserTest extends Specification {
 
     "returns MissingResult error when no Result tag is present" in {
       val error = PgnParser.parseResult("[Foo 1-0] \n [Date 12:12:02] \n [Foo Bar]\n\n\n 1. e4 d5 2. e6 d6 ")
-      error shouldEqual Left(PgnParser.ParseError.MissingResult)
+      error shouldEqual Left(ParseError.MissingResult)
     }
   }
 }

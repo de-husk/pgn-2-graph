@@ -1,12 +1,12 @@
 package pgn
 
-object PgnParser {
+sealed trait ParseError
+object ParseError {
+  case object MissingMoves extends ParseError
+  case object MissingResult extends ParseError
+}
 
-  sealed trait ParseError
-  object ParseError {
-    case object MissingMoves extends ParseError
-    case object MissingResult extends ParseError
-  }
+object PgnParser {
 
   def parseMoves(pgn: String): Either[ParseError, List[Move]] = {
     getMoveLine(pgn) match {
