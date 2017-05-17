@@ -1,17 +1,15 @@
 package pgn
 
 sealed trait ParseError
-object ParseError {
-  case object MissingMoves extends ParseError
-  case object MissingResult extends ParseError
-}
+case object MissingMoves extends ParseError
+case object MissingResult extends ParseError
 
 object PgnParser {
 
   def parseMoves(pgn: String): Either[ParseError, List[Move]] = {
     getMoveLine(pgn) match {
       case Some(s) => Right(parseFromMoveLine(s.toLowerCase.trim))
-      case None => Left(ParseError.MissingMoves)
+      case None => Left(MissingMoves)
     }
   }
 
@@ -20,16 +18,16 @@ object PgnParser {
       case Some(r) =>
         val result =
           if (r contains "1/2-1/2") {
-            Result.Draw
+            Draw
           } else if (r contains "0-1") {
-            Result.BlackVictory
+            BlackVictory
           } else if (r contains "1-0") {
-            Result.WhiteVictory
+            WhiteVictory
           } else {
-            Result.Ongoing
+            Ongoing
           }
         Right(result)
-      case None => Left(ParseError.MissingResult)
+      case None => Left(MissingResult)
     }
   }
 
@@ -53,17 +51,17 @@ object PgnParser {
           case (Some(wm), Some(bm)) => List(
             Move(
               SAN(index + 1, wm),
-              Turn.White
+              White
             ),
             Move(
               SAN(index + 1, bm),
-              Turn.Black
+              Black
             )
           )
           case (Some(wm), None) => List(
             Move(
               SAN(index + 1, wm),
-              Turn.White
+              White
             )
           )
           case _ => List()

@@ -12,9 +12,7 @@ case class SAN(
 )
 
 sealed trait Turn
-object Turn {
-  case object White extends Turn
-  case object Black extends Turn
-}
+case object White extends Turn
+case object Black extends Turn
 
 

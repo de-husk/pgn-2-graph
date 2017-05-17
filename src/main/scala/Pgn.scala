@@ -16,10 +16,8 @@ object Pgn {
 }
 
 sealed trait GameResult
-object Result {
-  case object WhiteVictory extends GameResult
-  case object BlackVictory extends GameResult
-  case object Draw extends GameResult
-  case object Ongoing extends GameResult
-}
+case object WhiteVictory extends GameResult
+case object BlackVictory extends GameResult
+case object Draw extends GameResult
+case object Ongoing extends GameResult
 
