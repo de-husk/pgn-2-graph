@@ -49,7 +49,7 @@ class PgnParserTest extends Specification {
   "parseResult" should {
     "correctly parse the result" in {
       val result = PgnParser.parseResult(fullPgn)
-      result shouldEqual Right(WhiteVictory)
+      result shouldEqual Right(Result.WhiteVictory)
     }
 
     "returns MissingResult error when no Result tag is present" in {

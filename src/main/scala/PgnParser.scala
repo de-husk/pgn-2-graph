@@ -6,30 +6,15 @@ case object MissingResult extends ParseError
 
 object PgnParser {
 
-  def parseMoves(pgn: String): Either[ParseError, List[Move]] = {
-    getMoveLine(pgn) match {
-      case Some(s) => Right(parseFromMoveLine(s.toLowerCase.trim))
-      case None => Left(MissingMoves)
-    }
-  }
+  def parseMoves(pgn: String): Either[ParseError, List[Move]] =
+    getMoveLine(pgn)
+      .map(s => parseFromMoveLine(s.toLowerCase.trim))
+      .toRight(MissingMoves)
 
-  def parseResult(pgn: String): Either[ParseError, GameResult] = {
-    getResultTag(pgn) match {
-      case Some(r) =>
-        val result =
-          if (r contains "1/2-1/2") {
-            Draw
-          } else if (r contains "0-1") {
-            BlackVictory
-          } else if (r contains "1-0") {
-            WhiteVictory
-          } else {
-            Ongoing
-          }
-        Right(result)
-      case None => Left(MissingResult)
-    }
-  }
+  def parseResult(pgn: String): Either[ParseError, Result] =
+    getResultTag(pgn)
+      .map(Result(_))
+      .toRight(MissingResult)
 
   private def getResultTag(pgn: String): Option[String] =
     """\[Result(.+)\]""".r.findFirstIn(pgn)

@@ -2,7 +2,7 @@ package pgn
 
 case class Pgn(
   moves: List[Move],
-  result: GameResult
+  result: Result
 )
 
 object Pgn {
@@ -15,9 +15,21 @@ object Pgn {
   }
 }
 
-sealed trait GameResult
-case object WhiteVictory extends GameResult
-case object BlackVictory extends GameResult
-case object Draw extends GameResult
-case object Ongoing extends GameResult
+sealed trait Result
+object Result {
+  case object WhiteVictory extends Result
+  case object BlackVictory extends Result
+  case object Draw extends Result
+  case object Ongoing extends Result
 
+  def apply(r: String): Result =
+    if (r contains "1/2-1/2") {
+      Draw
+    } else if (r contains "0-1") {
+      BlackVictory
+    } else if (r contains "1-0") {
+      WhiteVictory
+    } else {
+      Ongoing
+    }
+}
