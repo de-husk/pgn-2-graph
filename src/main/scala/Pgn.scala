@@ -1,7 +1,7 @@
 package pgn
 
 case class Pgn(
-  moves: List[Move],
+  moves: Stream[Move],
   result: Result
 )
 

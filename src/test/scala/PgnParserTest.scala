@@ -10,7 +10,7 @@ class PgnParserTest extends Specification {
   "parseMoves" should {
     "return the correct list of turns" in {
       val moves = PgnParser.parseMoves(pgn)
-      moves shouldEqual Right(List(
+      moves shouldEqual Right(Stream(
         Move(SAN(1, "e4"), White),
         Move(SAN(1, "e5"), Black),
         Move(SAN(2, "d4"), White),

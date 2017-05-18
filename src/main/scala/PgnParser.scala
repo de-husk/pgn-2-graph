@@ -6,7 +6,7 @@ case object MissingResult extends ParseError
 
 object PgnParser {
 
-  def parseMoves(pgn: String): Either[ParseError, List[Move]] =
+  def parseMoves(pgn: String): Either[ParseError, Stream[Move]] =
     getMoveLine(pgn)
       .map(s => parseFromMoveLine(s.toLowerCase.trim))
       .toRight(MissingMoves)
@@ -22,12 +22,13 @@ object PgnParser {
   private def getMoveLine(pgn: String): Option[String] =
     """\s+(1\..*)""".r.findFirstIn(pgn)
 
-  private def parseFromMoveLine(moveLine: String): List[Move] = {
+  private def parseFromMoveLine(moveLine: String): Stream[Move] = {
     val moveNumRegex = """([0-9]+)\."""
     val commentaryRegex = """[{](.*?)[}]"""
 
     moveLine.replaceAll(commentaryRegex, "")
-      .split(moveNumRegex).toList
+      .split(moveNumRegex)
+      .toStream
       .filter({ s => !s.isEmpty })
       .map({ turn: String => parseMovesForTurn(turn) })
       .zipWithIndex
