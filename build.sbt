@@ -11,6 +11,8 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.anormcypher" %% "anormcypher" % "0.9.1",
-  "org.specs2" %% "specs2-core" % "3.8.9" % "test"
+  "org.specs2" %% "specs2-core" % "3.8.9" % "test",
+  "org.scalaz" %% "scalaz-core" % "7.2.12",
+  "org.scalaz" %% "scalaz-effect" % "7.2.12"
 )
 

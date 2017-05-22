@@ -9,27 +9,30 @@ import org.anormcypher._
 import play.api.libs.ws._
 import scala.concurrent.ExecutionContext
 import com.typesafe.config.ConfigFactory
+import scalaz._, Scalaz._, effect._, IO._
 
 object Pgn2Graph {
   implicit val ec = ExecutionContext.global
   implicit val config = ConfigFactory.load()
 
-  def main(args: Array[String]): Unit = {
-    val pgnPath = args(0)
-    val pgn = fromFile(pgnPath).mkString
+  def main(args: Array[String]): Unit =
+    pureMain(args(0)).unsafePerformIO
 
-    val p = Pgn(pgn) match {
-      case Right(p1) => p1
-      case Left(parseError) =>
-        println("PARSE ERROR: " + parseError)
-        sys.exit(1)
-    }
-    println("Processing [" + pgnPath + "]")
-    createRoot()
-    insertPgnIntoGraph(p)
+  private def pureMain(filePath: String): IO[Unit] =
+    for {
+      _ <- putStrLn("Processing [" + filePath+ "]")
+      pgn <- getPgnContent(filePath)
+      _ <- Pgn(pgn) match {
+          case Right(p) => createRoot |+| insertPgnIntoGraph(p)
+          case Left(parseError) => putStrLn("PARSE ERROR: " + parseError)
+      }
+    } yield()
+
+  private def getPgnContent(filePath: String): IO[String] = IO {
+    fromFile(filePath).mkString
   }
 
-  private def createRoot(): Unit = {
+  private def createRoot(): IO[Unit] = IO {
     implicit val wsclient = ning.NingWSClient()
     implicit val connection = getNeo4jConnection(wsclient)
 
@@ -55,7 +58,7 @@ object Pgn2Graph {
     wsclient.close()
   }
 
-  private def insertPgnIntoGraph(pgn: Pgn): Unit = {
+  private def insertPgnIntoGraph(pgn: Pgn): IO[Unit] = IO {
     implicit val wsclient = ning.NingWSClient()
     implicit val connection = getNeo4jConnection(wsclient)
 
