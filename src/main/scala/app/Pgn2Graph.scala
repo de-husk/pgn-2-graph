@@ -16,11 +16,11 @@ object Pgn2Graph {
   implicit val config = ConfigFactory.load()
 
   def main(args: Array[String]): Unit =
-    pureMain(args(0)).unsafePerformIO
+    processPgn(args(0)).unsafePerformIO
 
-  private def pureMain(filePath: String): IO[Unit] =
+  private def processPgn(filePath: String): IO[Unit] =
     for {
-      _ <- putStrLn("Processing [" + filePath+ "]")
+      _ <- putStrLn("Processing [" + filePath + "]")
       pgn <- getPgnContent(filePath)
       _ <- Pgn(pgn) match {
           case Right(p) => createRoot |+| insertPgnIntoGraph(p)
